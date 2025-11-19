@@ -12,7 +12,6 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
-app.options("*", cors()); 
 
 app.use("/auth", authRoutes);
 app.use("/produtos", produtoRoutes);

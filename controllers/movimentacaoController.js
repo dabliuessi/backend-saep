@@ -33,3 +33,16 @@ export async function registrarMovimentacao(req, res) {
         res.status(400).json({ erro: "Erro ao registrar movimentação", detalhe: err.message });
     }
 }
+
+export async function recentes(req, res) {
+    const sql = `
+    SELECT m.*, p.nome AS nome_produto, u.nome AS usuario_nome
+    FROM movimentacoes m
+    LEFT JOIN produtos p ON p.id = m.produto_id
+    LEFT JOIN usuarios u ON u.id = m.usuario_id
+    ORDER BY m.criado_em DESC
+    LIMIT 30
+  `;
+    const result = await pool.query(sql);
+    res.json(result.rows);
+}

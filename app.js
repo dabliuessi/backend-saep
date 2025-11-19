@@ -6,8 +6,13 @@ import movimentacaoRoutes from "./routes/movimentacaoRoutes.js";
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: ["http://localhost:5173", "https://backend-saep.onrender.com"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}));
+app.options("*", cors()); 
 
 app.use("/auth", authRoutes);
 app.use("/produtos", produtoRoutes);

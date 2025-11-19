@@ -5,6 +5,8 @@ import produtoRoutes from "./routes/produtoRoutes.js";
 import movimentacaoRoutes from "./routes/movimentacaoRoutes.js";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
     origin: ["http://localhost:5173", "https://backend-saep.onrender.com"],

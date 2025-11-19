@@ -6,15 +6,11 @@ export async function registrarMovimentacao(req, res) {
         const usuario_id = req.user.id;
 
         await pool.query("BEGIN");
-
-        // 1. Inserir movimentação
         const sqlMov = `
             INSERT INTO movimentacoes (produto_id, usuario_id, tipo, quantidade, observacao)
             VALUES ($1, $2, $3, $4, $5)
         `;
         await pool.query(sqlMov, [produto_id, usuario_id, tipo, quantidade, observacao]);
-
-        // 2. Atualizar estoque
         const operacao = tipo === "entrada" ? "+" : "-";
 
         const sqlEstoque = `
